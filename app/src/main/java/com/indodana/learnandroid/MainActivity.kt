@@ -4,16 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.indodana.learnandroid.contract.MainContract
 import com.indodana.learnandroid.databinding.ActivityMainLinearBinding
 import com.indodana.learnandroid.delegate.viewBinding
+import com.indodana.learnandroid.presenter.MainPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     companion object {
         private const val TAG = "LA.MainActivity"
     }
 
     private val binding by viewBinding(ActivityMainLinearBinding::inflate)
     private var currentState: String? = null
+
+    private lateinit var presenter: MainPresenter
 
     init {
         Log.e(TAG, "INITIALIZED")
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate MainActivity")
         Log.e(TAG, "savedInstance onCreate: ${savedInstanceState?.getString("test")}")
+        presenter = MainPresenter(this)
         currentState = savedInstanceState?.getString("test") ?: "state"
 
         binding.container.setOnClickListener {
@@ -32,6 +37,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(this)
             }
         }
+
+        binding.calculate.setOnClickListener {
+            presenter.sumNumber(
+                binding.firstNumber.text.toString().toIntOrNull() ?: 0,
+                binding.secondNumber.text.toString().toIntOrNull() ?: 0
+            )
+        }
+
         setContentView(binding.root)
     }
 
@@ -74,6 +87,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDestroy()
         Log.e(TAG, "onDestroy MainActivity")
+    }
+
+    override fun showResult(result: Int) {
+        binding.result.text = result.toString()
     }
 }

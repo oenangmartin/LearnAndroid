@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="@color/black"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:divider="@color/black">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Text 1" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,8 +36,8 @@
         android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="50dp"
@@ -48,4 +49,79 @@
             android:layout_height="wrap_content"
             android:text="Text 7" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/calculatorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basic Calculator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/firstNumber"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="+"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstNumber"
+            app:layout_constraintStart_toEndOf="@+id/firstNumber"
+            app:layout_constraintTop_toTopOf="@id/firstNumber" />
+
+        <EditText
+            android:id="@+id/secondNumber"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/plus"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/equal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="="
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="@id/firstNumber"
+            app:layout_constraintStart_toEndOf="@+id/secondNumber"
+            app:layout_constraintTop_toTopOf="@id/firstNumber" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/equal"
+            app:layout_constraintStart_toEndOf="@+id/equal"
+            app:layout_constraintTop_toTopOf="@+id/equal" />
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Calculate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/result" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
