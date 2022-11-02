@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.indodana.learnandroid.databinding.ItemSampleBinding
 import com.indodana.learnandroid.model.SampleDataModel
+import com.indodana.learnandroid.repository.response.MovieResponse
 
 class SampleAdapter : RecyclerView.Adapter<SampleAdapter.SampleDataViewHolder>() {
 
-    private val dataSet: MutableList<SampleDataModel> = mutableListOf()
+    private val dataSet: MutableList<MovieResponse> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleDataViewHolder {
-        Log.e("LA.MainActivity", "onCreateViewHolder")
         return SampleDataViewHolder(
             ItemSampleBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -30,15 +30,15 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.SampleDataViewHolder>()
 
     override fun getItemCount(): Int = dataSet.size
 
-    fun setDataSet(data: List<SampleDataModel>) {
+    fun setDataSet(data: List<MovieResponse>) {
         dataSet.addAll(data)
     }
 
     class SampleDataViewHolder(private val viewBinding: ItemSampleBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-        fun bind(data: SampleDataModel) {
-            viewBinding.textView.text = data.primaryText
-            viewBinding.textView.visibility = if (data.isVisible) View.VISIBLE else View.GONE
+        fun bind(data: MovieResponse) {
+            viewBinding.textView.text = data.title
+            viewBinding.date.text = data.date
         }
     }
 }
