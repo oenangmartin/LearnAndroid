@@ -4,10 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide.init
 import com.indodana.learnandroid.contract.MainContract
 import com.indodana.learnandroid.databinding.ActivityMainLinearBinding
 import com.indodana.learnandroid.delegate.viewBinding
 import com.indodana.learnandroid.presenter.MainPresenter
+import com.indodana.learnandroid.viewmodel.MainViewModel
+import com.indodana.learnandroid.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     companion object {
@@ -17,7 +22,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val binding by viewBinding(ActivityMainLinearBinding::inflate)
     private var currentState: String? = null
 
-    private lateinit var presenter: MainPresenter
+//    private lateinit var presenter: MainPresenter
+
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, MainViewModelFactory())[MainViewModel::class.java] }
 
     init {
         Log.e(TAG, "INITIALIZED")
@@ -28,7 +35,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate MainActivity")
         Log.e(TAG, "savedInstance onCreate: ${savedInstanceState?.getString("test")}")
-        presenter = MainPresenter(this)
         currentState = savedInstanceState?.getString("test") ?: "state"
 
         binding.container.setOnClickListener {
@@ -39,13 +45,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
 
         binding.calculate.setOnClickListener {
-            presenter.sumNumber(
+            viewModel.sumNumber(
                 binding.firstNumber.text.toString().toIntOrNull() ?: 0,
                 binding.secondNumber.text.toString().toIntOrNull() ?: 0
             )
         }
 
         setContentView(binding.root)
+
+        observeValue()
+    }
+
+    private fun observeValue() {
+        viewModel.result.observe(this) { total ->
+            binding.result.text = total.toString()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -87,7 +101,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
+//        presenter.onDestroy()
         Log.e(TAG, "onDestroy MainActivity")
     }
 
