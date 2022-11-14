@@ -1,8 +1,10 @@
 package com.indodana.learnandroid.repository
 
 import com.indodana.learnandroid.repository.response.MovieResponse
+import javax.inject.Inject
 
-class MovieRemoteDataSource : MovieDataSource {
+class MovieRemoteDataSource
+@Inject constructor()  : MovieDataSource {
     override fun getMovies(): List<MovieResponse> {
         return listOf(
             MovieResponse(
