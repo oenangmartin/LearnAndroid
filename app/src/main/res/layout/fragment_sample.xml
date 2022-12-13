@@ -21,6 +21,16 @@
         android:text="Sample page of fragment"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/additionalText"
         app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <TextView
+        android:id="@+id/additionalText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="String from dagger"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

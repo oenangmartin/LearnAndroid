@@ -10,8 +10,9 @@ import com.indodana.learnandroid.databinding.ActivityMainLinearBinding
 import com.indodana.learnandroid.delegate.viewBinding
 import com.indodana.learnandroid.viewmodel.MainViewModel
 import com.indodana.learnandroid.viewmodel.MainViewModelFactory
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     companion object {
         private const val TAG = "LA.MainActivity"
     }
