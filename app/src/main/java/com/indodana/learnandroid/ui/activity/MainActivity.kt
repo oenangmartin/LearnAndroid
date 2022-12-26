@@ -1,20 +1,18 @@
-package com.indodana.learnandroid
+package com.indodana.learnandroid.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide.init
 import com.indodana.learnandroid.contract.MainContract
 import com.indodana.learnandroid.databinding.ActivityMainLinearBinding
 import com.indodana.learnandroid.delegate.viewBinding
-import com.indodana.learnandroid.presenter.MainPresenter
 import com.indodana.learnandroid.viewmodel.MainViewModel
 import com.indodana.learnandroid.viewmodel.MainViewModelFactory
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     companion object {
         private const val TAG = "LA.MainActivity"
     }
@@ -49,6 +47,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 binding.firstNumber.text.toString().toIntOrNull() ?: 0,
                 binding.secondNumber.text.toString().toIntOrNull() ?: 0
             )
+        }
+
+        binding.navigate.setOnClickListener {
+            currentState = "Navigate to another class"
+            Intent(this@MainActivity, FragmentSampleActivity::class.java).run {
+                startActivity(this)
+            }
         }
 
         setContentView(binding.root)
