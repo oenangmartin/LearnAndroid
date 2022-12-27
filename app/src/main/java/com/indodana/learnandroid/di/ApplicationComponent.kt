@@ -3,6 +3,7 @@ package com.indodana.learnandroid.di
 import com.indodana.learnandroid.LearnApplication
 import com.indodana.learnandroid.di.module.ActivityBuilderModule
 import com.indodana.learnandroid.di.module.AppModule
+import com.indodana.learnandroid.di.module.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         ActivityBuilderModule::class,
-        AppModule::class
+        AppModule::class,
+        NetworkModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<LearnApplication> {

@@ -2,6 +2,8 @@ package com.indodana.learnandroid.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.indodana.learnandroid.adapter.SampleAdapter
 import com.indodana.learnandroid.common.annotation.Numbered
@@ -25,23 +27,23 @@ class AnotherActivity : DaggerAppCompatActivity(), AnotherContract.View {
     @Inject
     lateinit var presenter: AnotherPresenter
 
-    @Inject
-    @Named("AnotherModuleText")
-    lateinit var anotherModuleString: String
-
-    @Inject
-    @Numbered(1)
-    lateinit var otherAnotherModuleString: String
-
-    @Inject
-    @Named("SampleFragmentText")
-    lateinit var sampleFragmentText: String
-
-    @Inject
-    lateinit var unscopedDependency: UnscopedDependency
-
-    @Inject
-    lateinit var unscopedDependencyA: UnscopedDependency
+//    @Inject
+//    @Named("AnotherModuleText")
+//    lateinit var anotherModuleString: String
+//
+//    @Inject
+//    @Numbered(1)
+//    lateinit var otherAnotherModuleString: String
+//
+//    @Inject
+//    @Named("SampleFragmentText")
+//    lateinit var sampleFragmentText: String
+//
+//    @Inject
+//    lateinit var unscopedDependency: UnscopedDependency
+//
+//    @Inject
+//    lateinit var unscopedDependencyA: UnscopedDependency
 
     //    @Inject lateinit var movieRemoteDataSource: MovieRemoteDataSource
     //    @Inject lateinit var repository: MovieRepository
@@ -59,14 +61,26 @@ class AnotherActivity : DaggerAppCompatActivity(), AnotherContract.View {
 
         presenter.loadMovies()
 
-        Log.e(TAG, "onCreate: $anotherModuleString")
-        Log.e(TAG, "onCreate: $otherAnotherModuleString")
-        Log.e(TAG, "onCreate: $sampleFragmentText")
+//        Log.e(TAG, "onCreate: $anotherModuleString")
+//        Log.e(TAG, "onCreate: $otherAnotherModuleString")
+//        Log.e(TAG, "onCreate: $sampleFragmentText")
 
         setContentView(binding.root)
     }
 
     override fun showMovies(movies: List<MovieResponse>) {
         adapter.setDataSet(movies)
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

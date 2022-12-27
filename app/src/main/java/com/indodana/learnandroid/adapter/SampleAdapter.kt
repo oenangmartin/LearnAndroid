@@ -2,11 +2,9 @@ package com.indodana.learnandroid.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.indodana.learnandroid.databinding.ItemSampleBinding
-import com.indodana.learnandroid.model.SampleDataModel
 import com.indodana.learnandroid.repository.response.MovieResponse
 
 class SampleAdapter : RecyclerView.Adapter<SampleAdapter.SampleDataViewHolder>() {
@@ -31,14 +29,16 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.SampleDataViewHolder>()
     override fun getItemCount(): Int = dataSet.size
 
     fun setDataSet(data: List<MovieResponse>) {
-        dataSet.addAll(data)
+        val lastPosition = dataSet.size
+        dataSet.addAll(lastPosition, data)
+        notifyItemRangeInserted(lastPosition, dataSet.size)
     }
 
     class SampleDataViewHolder(private val viewBinding: ItemSampleBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(data: MovieResponse) {
             viewBinding.textView.text = data.title
-            viewBinding.date.text = data.date
+            viewBinding.date.text = data.body
         }
     }
 }
